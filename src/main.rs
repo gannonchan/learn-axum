@@ -19,13 +19,13 @@ pub struct AppDbStat {
 async fn main() -> anyhow::Result<()> {
     // initialize tracing
     tracing_subscriber::fmt::init();
-
+    let db_uri = dotenv::var("DATABASE_URI")?;
     // run our app with hyper
     // `axum::Server` is a re-export of `hyper::Server`
     let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
     tracing::debug!("listening on {}", addr);
     // let service_builder = ServiceBuilder::new();
-    let pool = db::mysql_pool().await?;
+    let pool = db::mysql_pool(db_uri).await?;
     let app_stat = AppDbStat { pool };
     let routes = routers::routers()
         // 使用请求扩展进行外部传递
