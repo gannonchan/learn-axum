@@ -1,0 +1,14 @@
+
+###
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "name": "gannon",
+  "age": 22,
+  "province": "sichuan",
+  "city": "chengdu"
+}
+
+###
+DELETE http://localhost:3000/users/9
