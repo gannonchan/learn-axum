@@ -11,4 +11,13 @@ Content-Type: application/json
 }
 
 ###
+docker run --name mysql -v /mydata/mysql/log:/var/log/mysql \
+    -v /mydata/mysql/data:/var/lib/mysql \
+    -v /mydata/mysql/conf:/etc/mysql/conf.d \
+    -p 33061:3306 \
+    -e MYSQL_ROOT_PASSWORD=123456 -d mysql \
+    --init-connect="SET collation_connection=utf8mb4_0900_ai_ci" \
+    --init-connect="SET NAMES utf8mb4" \
+    --skip-character-set-client-handshake
+###
 DELETE http://localhost:3000/users/9
