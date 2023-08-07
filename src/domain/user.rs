@@ -1,3 +1,4 @@
+use chrono::NaiveDateTime;
 use serde::{Deserialize, Serialize};
 use sqlx::FromRow;
 
@@ -12,6 +13,8 @@ pub struct User {
     city: Option<String>,
     address: Option<String>,
     phone: Option<String>,
+    create_time: Option<NaiveDateTime>,
+    update_time: Option<NaiveDateTime>,
 }
 
 impl Default for User {
@@ -25,6 +28,8 @@ impl Default for User {
             city: None,
             address: None,
             phone: None,
+            create_time: None,
+            update_time: None,
         }
     }
 }
@@ -32,7 +37,7 @@ impl Default for User {
 impl User {
     // all arguments constructor
     pub fn new(id: i64, name: String, age: i32, gender: String, province: String, city: String,
-               address: String, phone: String) -> Self {
+               address: String, phone: String, create_time: NaiveDateTime, update_time: NaiveDateTime) -> Self {
         Self {
             id: Some(id),
             name: Some(name),
@@ -42,6 +47,8 @@ impl User {
             city: Some(city),
             address: Some(address),
             phone: Some(phone),
+            create_time: Some(create_time),
+            update_time: Some(update_time),
         }
     }
 
@@ -70,7 +77,12 @@ impl User {
     pub fn set_phone(&mut self, phone: &str) {
         self.phone = Some(phone.to_owned())
     }
-
+    pub fn set_create_time(&mut self, create_time: NaiveDateTime) {
+        self.create_time = Some(create_time)
+    }
+    pub fn set_update_time(&mut self, update_time: NaiveDateTime) {
+        self.update_time = Some(update_time)
+    }
     // getter
     pub fn id(&self) -> Option<i64> {
         self.id
@@ -95,5 +107,11 @@ impl User {
     }
     pub fn phone(&self) -> Option<String> {
         self.phone.clone()
+    }
+    pub fn create_time(&self) -> Option<NaiveDateTime> {
+        self.create_time
+    }
+    pub fn update_time(&self) -> Option<NaiveDateTime> {
+        self.update_time
     }
 }
